@@ -128,10 +128,17 @@ class TestProductModel(unittest.TestCase):
         product.update()
         self.assertEqual(product.id, original_id)
         self.assertEqual(product.description, "testing")
-        # Fetch it back and make sure the id hasn't changed
+Fetch it back and make sure the ID hasn't changed
         # but the data did change
         products = Product.all()
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].id, original_id)
         self.assertEqual(products[0].description, "testing")
-     
+      def test_delete_a_product(self):
+        """It should Delete a Product"""
+        product = ProductFactory()
+        product.create()
+        self.assertEqual(len(Product.all()), 1)
+        # delete the product and make sure it isn't in the database
+        product.delete()
+        self.assertEqual(len(Product.all()), 0)
